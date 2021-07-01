@@ -61,8 +61,8 @@ class GetMemberPropertiesTest extends AbstractMethodUnitTest
                     'scope'           => 'public',
                     'scope_specified' => false,
                     'is_static'       => false,
-                    'type'            => 'int',
-                    'nullable_type'   => false,
+                    'type'            => '?int',
+                    'nullable_type'   => true,
                 ],
             ],
             [
@@ -141,8 +141,8 @@ class GetMemberPropertiesTest extends AbstractMethodUnitTest
                     'scope'           => 'public',
                     'scope_specified' => false,
                     'is_static'       => true,
-                    'type'            => 'string',
-                    'nullable_type'   => false,
+                    'type'            => '?string',
+                    'nullable_type'   => true,
                 ],
             ],
             [
@@ -459,6 +459,187 @@ class GetMemberPropertiesTest extends AbstractMethodUnitTest
                     'nullable_type'   => false,
                 ],
             ],
+            [
+                '/* testPHP8MixedTypeHint */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => true,
+                    'type'            => 'miXed',
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8MixedTypeHintNullable */',
+                [
+                    'scope'           => 'private',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => '?mixed',
+                    'nullable_type'   => true,
+                ],
+            ],
+            [
+                '/* testNamespaceOperatorTypeHint */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => '?namespace\Name',
+                    'nullable_type'   => true,
+                ],
+            ],
+            [
+                '/* testPHP8UnionTypesSimple */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'int|float',
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8UnionTypesTwoClasses */',
+                [
+                    'scope'           => 'private',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'MyClassA|\Package\MyClassB',
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8UnionTypesAllBaseTypes */',
+                [
+                    'scope'           => 'protected',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'array|bool|int|float|NULL|object|string',
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8UnionTypesAllPseudoTypes */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => false,
+                    'is_static'       => false,
+                    'type'            => 'false|mixed|self|parent|iterable|Resource',
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8UnionTypesIllegalTypes */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    // Missing static, but that's OK as not an allowed syntax.
+                    'type'            => 'callable||void',
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8UnionTypesNullable */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => '?int|float',
+                    'nullable_type'   => true,
+                ],
+            ],
+            [
+                '/* testPHP8PseudoTypeNull */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'null',
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8PseudoTypeFalse */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'false',
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8PseudoTypeFalseAndBool */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'bool|FALSE',
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8ObjectAndClass */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'object|ClassName',
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8PseudoTypeIterableAndArray */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'iterable|array|Traversable',
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8DuplicateTypeInUnionWhitespaceAndComment */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'int|string|INT',
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8PropertySingleAttribute */',
+                [
+                    'scope'           => 'public',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'string',
+                    'nullable_type'   => false,
+                ],
+            ],
+            [
+                '/* testPHP8PropertyMultipleAttributes */',
+                [
+                    'scope'           => 'protected',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => '?int|float',
+                    'nullable_type'   => true,
+                ],
+            ],
+            [
+                '/* testPHP8PropertyMultilineAttribute */',
+                [
+                    'scope'           => 'private',
+                    'scope_specified' => true,
+                    'is_static'       => false,
+                    'type'            => 'mixed',
+                    'nullable_type'   => false,
+                ],
+            ],
         ];
 
     }//end dataGetMemberProperties()
@@ -469,7 +650,7 @@ class GetMemberPropertiesTest extends AbstractMethodUnitTest
      *
      * @param string $identifier Comment which precedes the test case.
      *
-     * @expectedException        PHP_CodeSniffer\Exceptions\TokenizerException
+     * @expectedException        PHP_CodeSniffer\Exceptions\RuntimeException
      * @expectedExceptionMessage $stackPtr is not a class member var
      *
      * @dataProvider dataNotClassProperty
@@ -508,7 +689,7 @@ class GetMemberPropertiesTest extends AbstractMethodUnitTest
     /**
      * Test receiving an expected exception when a non variable is passed.
      *
-     * @expectedException        PHP_CodeSniffer\Exceptions\TokenizerException
+     * @expectedException        PHP_CodeSniffer\Exceptions\RuntimeException
      * @expectedExceptionMessage $stackPtr must be of type T_VARIABLE
      *
      * @return void

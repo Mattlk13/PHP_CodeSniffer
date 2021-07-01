@@ -9,8 +9,8 @@
 
 namespace PHP_CodeSniffer\Standards\Squiz\Sniffs\Commenting;
 
-use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
 use PHP_CodeSniffer\Util\Tokens;
 
 class BlockCommentSniff implements Sniff
@@ -363,6 +363,7 @@ class BlockCommentSniff implements Sniff
         if ((isset($tokens[$contentBefore]['scope_closer']) === true
             && $tokens[$contentBefore]['scope_opener'] === $contentBefore)
             || $tokens[$contentBefore]['code'] === T_OPEN_TAG
+            || $tokens[$contentBefore]['code'] === T_OPEN_TAG_WITH_ECHO
         ) {
             if (($tokens[$stackPtr]['line'] - $tokens[$contentBefore]['line']) !== 1) {
                 $error = 'Empty line not required before block comment';
